@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { baseURL } from '../config';
+import { baseURL } from '../../config';
 import { authApiServer } from '../utils/api/consts/auth';
 import { AuthContext } from '../contextAuth/AuthContext';
 import { setUser } from '../state/slices/user/user';

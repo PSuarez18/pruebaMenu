@@ -13,7 +13,6 @@ const AverageReviewScore = ({ score, totalReviews }) => {
                     <span className="text-gray-600 font-bold "> de {totalStars}</span>
                 </div>
             </div>
-
             <div className="flex flex-col w-full">
                 {[...Array(totalStars)].map((_, rowIndex) => {
                     const widthPercentage = Math.max(0, Math.round((totalStars - rowIndex) * 20));
