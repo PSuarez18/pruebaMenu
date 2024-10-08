@@ -45,7 +45,7 @@ const Layout = () => {
                     </footer>
                 </>
             ) : (
-                <div className="flex justify-center items-center h-full px-4"> {/* Centrar el Login */}
+                <div className="flex justify-center items-center h-full px-4">
                     <Login />
                 </div>
             )}

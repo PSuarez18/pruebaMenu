@@ -22,8 +22,8 @@ const AppRouter = () => {
                     <Route path="detailFood" element={<PrivateRoute><DetailFood /></PrivateRoute>} />
                     <Route path={PROFILE_USER} element={<PrivateRoute><Profile /></PrivateRoute>} />
                     <Route path={SEARCH_RESULTS} element={<PrivateRoute><SearchResultsContainer /></PrivateRoute>} />
+                    <Route path="*" element={<NotFound />} />
                 </Route>
-                <Route path="*" element={<NotFound />} />
             </Routes>
         </AuthProvider>
     );

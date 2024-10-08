@@ -1,10 +1,12 @@
 import { createContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { logout as logoutFunction } from './logout';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('authToken');
@@ -12,15 +14,17 @@ export const AuthProvider = ({ children }) => {
 
         if (token && new Date() < new Date(expirationDate)) {
             setIsAuthenticated(true);
+        } else {
+            navigate('/');
         }
-    }, []);
+    }, [navigate]);
 
     const login = () => {
         setIsAuthenticated(true);
     };
 
     const handleLogout = async () => {
-        await logoutFunction(setIsAuthenticated);
+        await logoutFunction(setIsAuthenticated, navigate);
     };
 
     return (
