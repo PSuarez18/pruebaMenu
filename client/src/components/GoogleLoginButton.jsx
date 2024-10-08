@@ -7,6 +7,7 @@ import { AuthContext } from '../contextAuth/AuthContext';
 import { setUser } from '../state/slices/user/user';
 import { useDispatch } from 'react-redux';
 import { handleLogout } from '../contextAuth/handleLogout';
+import { useNavigate } from 'react-router-dom';
 
 const GoogleLoginButton = () => {
     const [error, setError] = useState(null);
@@ -15,6 +16,7 @@ const GoogleLoginButton = () => {
     const { login } = useContext(AuthContext);
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleSuccess = async (response) => {
         const token = response.credential;
@@ -54,7 +56,7 @@ const GoogleLoginButton = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             if (isTokenExpired()) {
-                handleLogout(dispatch);
+                handleLogout(dispatch, navigate);
             }
         }, 60000);
 

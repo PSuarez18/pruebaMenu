@@ -6,10 +6,12 @@ import {
 } from "../utils/consts/consts";
 import { handleLogout } from "../contextAuth/handleLogout";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
     const [userData, setUserData] = useState(null);
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     useEffect(() => {
         const storedUserData = localStorage.getItem("userData");
@@ -19,7 +21,7 @@ const Profile = () => {
     }, []);
 
     const handleLogoutClick = () => {
-        handleLogout(dispatch);
+        handleLogout(dispatch, navigate);
     };
 
     if (!userData) {
