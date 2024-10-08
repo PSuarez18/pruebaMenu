@@ -52,9 +52,7 @@ const Profile = () => {
                     </select>
                 </div>
             </div>
-            <div className="px-5 pb-5 mx-auto">
-                <ButtonSecondary textChildren={LOGOUT_TEXT} onClick={handleLogoutClick} className="w-full  text-white" />
-            </div>
+           
         </div>
     );
 };
