@@ -18,15 +18,15 @@ const Layout = () => {
     const products = useSelector((state) => state.products.items);
     const { isAuthenticated } = useContext(AuthContext);
 
-   
+
     useEffect(() => {
-        if (isAuthenticated) {  
+        if (isAuthenticated) {
             fetchListFoods(products, dispatch, setAllProducts);
         }
-    }, [dispatch, products, isAuthenticated]); 
+    }, [dispatch, products, isAuthenticated]);
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-dvh">
             {isAuthenticated ? (
                 <>
                     <header>

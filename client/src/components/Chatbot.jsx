@@ -63,7 +63,7 @@ const Chatbot = ({ closeChatBot }) => {
     }, [messages]);
 
     return (
-        <div className="w-full fixed top-0 left-0 flex flex-col h-screen bg-white rounded-lg shadow-lg">
+        <div className="w-full fixed top-0 left-0 flex flex-col h-dvh bg-white rounded-lg shadow-lg">
             <div className="bg-blackPrimary text-white p-9 flex justify-between items-center">
                 <button onClick={closeChatBot}>
                     <img src={iconBack} alt="icon go back" />
