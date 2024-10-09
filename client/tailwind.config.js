@@ -1,6 +1,13 @@
+const { nextui } = require("@nextui-org/react");
+
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "./src/**/*.css"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.css",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -20,9 +27,10 @@ export default {
       },
       lineClamp: {
         8: "8",
-        10: "10"
+        10: "10",
       },
     },
   },
-  plugins: [require("tailwind-scrollbar-hide")],
+  darkMode: "class",
+  plugins: [require("tailwind-scrollbar-hide"), nextui()],
 };

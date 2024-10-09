@@ -6,6 +6,7 @@ import ChatInput from './ChatInput';
 import { SENDER_CHEF, SENDER_USER, TITLE_CHATBOT } from '../utils/consts/consts';
 import axiosInstace from '../utils/api/axiosInstance';
 import { API_CHATBOT_SERVER } from '../utils/api/consts/chatbot';
+import { Spinner } from '@nextui-org/react';
 
 const Chatbot = ({ closeChatBot }) => {
     const [messages, setMessages] = useState([
@@ -13,7 +14,8 @@ const Chatbot = ({ closeChatBot }) => {
     ]);
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState("");
-    const messagesEndRef = useRef(null); // Ref para el final del contenedor de mensajes
+    const [viewportHeight, setViewportHeight] = useState(window.innerHeight); // Estado para la altura del viewport
+    const messagesEndRef = useRef(null);
 
     const handleSend = async () => {
         if (input.trim()) {
@@ -26,30 +28,8 @@ const Chatbot = ({ closeChatBot }) => {
                 const response = await axiosInstace.post(API_CHATBOT_SERVER, {
                     message: input
                 });
-                console.log(response)
                 const botMessage = { text: response.data.response, sender: SENDER_CHEF };
                 setMessages((prev) => [...prev, botMessage]);
-
-            } catch (error) {
-                let errorMessage;
-
-                if (error.response) {
-                    errorMessage = {
-                        text: "Lo siento, hubo problemas con nuestros servidores. Por favor, inténtalo más tarde.",
-                        sender: SENDER_CHEF
-                    };
-                } else if (error.request) {
-                    errorMessage = {
-                        text: "No se pudo conectar al servidor. Parece que el servicio no está en línea.",
-                        sender: SENDER_CHEF
-                    };
-                } else {
-                    errorMessage = {
-                        text: "No se pudo enviar el mensaje. Hubo un problema en la aplicación.",
-                        sender: SENDER_CHEF
-                    };
-                }
-                setMessages((prev) => [...prev, errorMessage]);
 
             } finally {
                 setLoading(false);
@@ -57,13 +37,23 @@ const Chatbot = ({ closeChatBot }) => {
         }
     };
 
+    useEffect(() => {
+        const handleResize = () => {
+            setViewportHeight(window.innerHeight); // Actualizar la altura cuando cambie el tamaño de la ventana
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
     return (
-        <div className="w-full fixed top-0 left-0 flex flex-col h-dvh bg-white rounded-lg shadow-lg">
+        <div className="w-full fixed top-0 left-0 flex flex-col bg-white rounded-lg shadow-lg"
+            style={{ height: viewportHeight }}> {/* Ajustar el alto dinámicamente */}
             <div className="bg-blackPrimary text-white p-9 flex justify-between items-center">
                 <button onClick={closeChatBot}>
                     <img src={iconBack} alt="icon go back" />
@@ -78,6 +68,17 @@ const Chatbot = ({ closeChatBot }) => {
                 {messages.map((msg, index) => (
                     <ChatMessage sender={msg.sender} text={msg.text} key={index} />
                 ))}
+
+                {/* Mostrar el Spinner mientras se espera la respuesta del servidor */}
+                {loading && (
+                    <div className="flex justify-center items-center mt-4">
+                        <Spinner
+                            size="lg"
+                            color='default'
+                        />
+                    </div>
+                )}
+
                 <div ref={messagesEndRef} />
             </div>
 
