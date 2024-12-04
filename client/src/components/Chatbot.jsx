@@ -10,7 +10,7 @@ import { Spinner } from '@nextui-org/react';
 
 const Chatbot = ({ closeChatBot }) => {
     const [messages, setMessages] = useState([
-        { text: "¡Hola! soy el asistente Virtual desarrollado por PAOLO para una demostracion implementando modelos de IA, ¿En qué puedo ayudarte hoy?", sender: SENDER_CHEF }
+        { text: "¡Hola! soy el asistente Virtual desarrollado por PAOLO para una demostracion orientado a un restaurant implementando modelos de IA, ¿En qué puedo ayudarte hoy?", sender: SENDER_CHEF }
     ]);
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState("");
